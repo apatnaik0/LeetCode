@@ -3,6 +3,7 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
+        ''
         l=m-1
         r=n-1
         i = m+n-1
