@@ -25,20 +25,10 @@ class Solution:
                     matrix[0][j]=0
                     matrix[i][0]=0
 
-        # for i in range(1,rows):
-        #     for j in range(1,cols):
-        #         if matrix[0][j]==0 or matrix[i][0]==0:
-        #             matrix[i][j]=0
-        
-        for r in range(1, rows):
-            if matrix[r][0] == 0:
-                for c in range(1, cols):
-                    matrix[r][c] = 0
-
-        for c in range(1, cols):
-            if matrix[0][c] == 0:
-                for r in range(1, rows):
-                    matrix[r][c] = 0
+        for i in range(1,rows):
+            for j in range(1,cols):
+                if matrix[0][j]==0 or matrix[i][0]==0:
+                    matrix[i][j]=0
         
         if c1z:
             for i in range(rows):
