@@ -19,11 +19,9 @@ class Solution:
 
         while low<=high:
             mid = (low+high)//2
-            # print(low,mid,high)
             if poss(nums,mid,threshold):
                 ans = mid
                 high = mid-1
-                # print(ans)
             else:
                 low = mid+1
         return ans
