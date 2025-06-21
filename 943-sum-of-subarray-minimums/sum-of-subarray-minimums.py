@@ -1,25 +1,35 @@
 class Solution:
-    def sumSubarrayMins(self, arr: List[int]) -> int:
-        MOD = 10**9+7
+    def Nse(self, arr):
         n = len(arr)
+        nse = [0] * n
         stack = []
-        prev_smaller = [-1]*n
-        next_smaller = [n]*n
 
-        for i in range(n):
-            while stack and arr[stack[-1]] > arr[i]:
+        for i in range(n-1, -1, -1):
+            while stack and arr[i] <= arr[stack[-1]]:
                 stack.pop()
-            prev_smaller[i] = stack[-1] if stack else -1
+            nse[i] = n if not stack else stack[-1]
             stack.append(i)
+        return nse
 
+    def Pse(self, arr):
+        n = len(arr)
+        pse = [-1] * n
         stack = []
 
         for i in range(n):
-            while stack and arr[stack[-1]] > arr[i]:
-                index = stack.pop()
-                next_smaller[index] = i
+            while stack and arr[i] < arr[stack[-1]]:
+                stack.pop()
+            pse[i] = -1 if not stack else stack[-1]
             stack.append(i)
+        return pse
 
-        ans = sum((i-prev_smaller[i]) * (next_smaller[i] - i) * arr[i] for i in range(n))%MOD
-
-        return ans
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        nse = self.Nse(arr)
+        pse = self.Pse(arr)
+        total = 0
+        mod = int(1e9 + 7)
+        for i in range(len(arr)):
+            left = i - pse[i]
+            right = nse[i] - i
+            total = (total + arr[i] * left * right) % mod
+        return total
