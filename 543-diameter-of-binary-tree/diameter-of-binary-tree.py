@@ -6,14 +6,15 @@
 #         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        maxi = 0
-        def dia(root):
-            if not root:
+        maxi = [0]  # list to hold max value
+
+        def dia(node):
+            if not node:
                 return 0
-            nonlocal maxi
-            lh = dia(root.left)
-            rh = dia(root.right)
-            maxi = max(maxi,lh+rh)
-            return 1+max(lh,rh)
+            lh = dia(node.left)
+            rh = dia(node.right)
+            maxi[0] = max(maxi[0], lh + rh)
+            return 1 + max(lh, rh)
+
         dia(root)
-        return maxi
+        return maxi[0]
