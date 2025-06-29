@@ -33,7 +33,7 @@ class Solution:
         #         root = root.right
         # return ans
 
-        preorder = []
+        inorder = []
         cur = root
         while cur:
             if cur.left:
@@ -45,9 +45,9 @@ class Solution:
                     cur = cur.left
                 else:
                     node.right = None
-                    preorder.append(cur.val)
+                    inorder.append(cur.val)
                     cur = cur.right
             else:
-                preorder.append(cur.val)
+                inorder.append(cur.val)
                 cur = cur.right
-        return preorder
+        return inorder
