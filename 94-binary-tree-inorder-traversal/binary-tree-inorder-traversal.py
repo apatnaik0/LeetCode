@@ -17,18 +17,37 @@ class Solution:
         # inorder(root)
         # return ans
 
-        if root is None:
-            return []
-        ans = []
-        st = []
-        while True:
-            if root:
-                st.append(root)
-                root = root.left
+        # if root is None:
+        #     return []
+        # ans = []
+        # st = []
+        # while True:
+        #     if root:
+        #         st.append(root)
+        #         root = root.left
+        #     else:
+        #         if len(st)==0:
+        #             break
+        #         root = st.pop()
+        #         ans.append(root.val)
+        #         root = root.right
+        # return ans
+
+        preorder = []
+        cur = root
+        while cur:
+            if cur.left:
+                node = cur.left
+                while node.right and node.right!=cur:
+                    node = node.right
+                if not node.right:
+                    node.right = cur
+                    cur = cur.left
+                else:
+                    node.right = None
+                    preorder.append(cur.val)
+                    cur = cur.right
             else:
-                if len(st)==0:
-                    break
-                root = st.pop()
-                ans.append(root.val)
-                root = root.right
-        return ans
+                preorder.append(cur.val)
+                cur = cur.right
+        return preorder
