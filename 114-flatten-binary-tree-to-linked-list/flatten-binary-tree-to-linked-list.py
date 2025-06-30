@@ -22,18 +22,30 @@ class Solution:
         # flat(root)
         # return root
 
-        if not root:
-            return None
-        st = []
-        st.append(root)
-        while st:
-            node = st.pop()
-            if node.right:
-                st.append(node.right)
-            if node.left:
-                st.append(node.left)
-            if st:
-                node.right = st[-1]
-            node.left = None
+        # if not root:
+        #     return None
+        # st = []
+        # st.append(root)
+        # while st:
+        #     node = st.pop()
+        #     if node.right:
+        #         st.append(node.right)
+        #     if node.left:
+        #         st.append(node.left)
+        #     if st:
+        #         node.right = st[-1]
+        #     node.left = None
+        # return root
+
+        cur = root
+        while cur:  
+            if cur.left:
+                node = cur.left
+                while node.right:
+                    node = node.right
+                node.right = cur.right
+                cur.right = cur.left
+                cur.left = None
+            cur = cur.right
         return root
         
