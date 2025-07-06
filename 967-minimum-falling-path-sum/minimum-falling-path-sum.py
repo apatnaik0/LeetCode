@@ -14,28 +14,29 @@ class Solution:
         #     dp[i][j] = min(up,ld,rd)
         #     return dp[i][j]
         mini = int(1e9)
-        dp = [[-1 for _ in range(n)] for _ in range(n)]
+        prev = [-1 for _ in range(n)]
         # for i in range(n):
         #     mini = min(mini,solve(n-1,i))
         for i in range(n):
-            dp[0][i] = matrix[0][i]
+            prev[i] = matrix[0][i]
         for i in range(1,n):
+            cur = [-1 for _ in range(n)]
             for j in range(n):
-                up = matrix[i][j] + dp[i-1][j]
+                up = matrix[i][j] + prev[j]
                 ld = matrix[i][j] 
                 if j>0:
-                    ld += dp[i-1][j-1]
+                    ld += prev[j-1]
                 else:
                     ld += int(1e9)
                 rd = matrix[i][j]
                 if j<n-1:
-                    rd += dp[i-1][j+1]
+                    rd += prev[j+1]
                 else:
                     rd += int(1e9)
-                dp[i][j] = min(up,ld,rd)
-            
+                cur[j] = min(up,ld,rd)
+            prev = cur
         for i in range(n):
-            mini = min(mini,dp[n-1][i])
+            mini = min(mini,prev[i])
         return mini
             
         
