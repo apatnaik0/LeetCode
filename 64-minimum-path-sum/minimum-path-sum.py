@@ -13,25 +13,27 @@ class Solution:
         #     up = grid[i][j] + solve(i-1,j,dp)
         #     dp[i][j] = min(left,up)
         #     return dp[i][j]
-        dp = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+        # dp = [[-1 for _ in range(n+1)] for _ in range(m+1)]
         # return solve(m,n,dp)
-
+        prev = [-1 for _ in range(n+1)]
         for i in range(m+1):
+            cur = [-1 for _ in range(n+1)]
             for j in range(n+1):
                 if i==0 and j==0:
-                    dp[i][j]=grid[i][j]
+                    cur[j]=grid[i][j]
                 else:
                     left = grid[i][j]
                     if j>0:
-                        left += dp[i][j-1]
+                        left += cur[j-1]
                     else:
                         left += int(1e9)
                     up = grid[i][j]
                     if i>0:
-                        up += dp[i-1][j]
+                        up += prev[j]
                     else:
                         up += int(1e9)
-                    dp[i][j] = min(left,up)
-        return dp[m][n]
+                    cur[j] = min(left,up)
+            prev = cur
+        return prev[n]
         
         
