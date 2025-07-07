@@ -15,23 +15,23 @@ class Solution:
         #     dp[ind][target] = min(pick,notpick)
         #     return dp[ind][target]
         
-        dp = [[-1 for _ in range(amount+1)] for _ in range(n)]
+        prev = [-1 for _ in range(amount+1)]
         # ans = solve(n-1,amount)
         for i in range(amount+1):
             if i%coins[0]==0:
-                dp[0][i] = i//coins[0]
+                prev[i] = i//coins[0]
             else:
-                dp[0][i] = 1e9
-        for i in range(n):
-            dp[i][0] = 0
+                prev[i] = 1e9
         for i in range(1,n):
-            for j in range(1,amount+1):
+            cur = [-1 for _ in range(amount+1)]
+            for j in range(amount+1):
                 pick = 1e9
                 if j>=coins[i]:
-                    pick = 1 + dp[i][j-coins[i]]
-                notpick = dp[i-1][j]
-                dp[i][j] = min(pick,notpick)
-        if dp[n-1][amount]>=1e9:
+                    pick = 1 + cur[j-coins[i]]
+                notpick = prev[j]
+                cur[j] = min(pick,notpick)
+            prev = cur
+        if prev[amount]>=1e9:
             return -1
-        return dp[n-1][amount]
+        return prev[amount]
             
