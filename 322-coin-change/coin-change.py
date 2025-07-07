@@ -2,6 +2,8 @@ class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         n = len(coins)
         def solve(ind,target):
+            if target == 0:
+                return 0
             if ind == 0:
                 if target%coins[ind]==0:
                     return target//coins[ind]
