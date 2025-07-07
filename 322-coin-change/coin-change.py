@@ -17,7 +17,7 @@ class Solution:
         
         prev = [0 for _ in range(amount+1)]
         # ans = solve(n-1,amount)
-        for i in range(amount+1):
+        for i in range(amount,-1,-1):
             if i%coins[0]==0:
                 prev[i] = i//coins[0]
             else:
