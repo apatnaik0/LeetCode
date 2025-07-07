@@ -21,20 +21,22 @@ class Solution:
             s += i
         if s%2:
             return False
-        dp = [[False for _ in range(s//2+1)] for _ in range(len(nums))]
+        prev = [False for _ in range(s//2+1)]
         # return solve(len(nums)-1,s//2)
         for i in range(len(nums)):
-            dp[i][0] = True
+            prev[0] = True
         if nums[0]<=s//2+1:
-            dp[0][nums[0]] = True
+            prev[nums[0]] = True
     
         for i in range(1,len(nums)):
+            cur = [False for _ in range(s//2+1)]
             for j in range(1,s//2+1):
                 pick = False
                 if nums[i]<=j:
-                    pick = dp[i-1][j-nums[i]]
-                notpick = dp[i-1][j]
-                dp[i][j] = pick or notpick
-        return dp[len(nums)-1][s//2]
+                    pick = prev[j-nums[i]]
+                notpick = prev[j]
+                cur[j] = pick or notpick
+            prev = cur
+        return prev[s//2]
 
             
