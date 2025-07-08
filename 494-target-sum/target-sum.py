@@ -25,20 +25,23 @@ class Solution:
         if tar%2!=0:
             return 0
         tar = tar//2
-        dp = [[0 for _ in range(tar+1)] for _ in range(n)]
+        # dp = [[0 for _ in range(tar+1)] for _ in range(n)]
+        prev = [0 for _ in range(tar+1)]
         for i in range(tar+1):
             if i==0 and nums[0]==0:
-                dp[0][i] = 2
+                prev[i] = 2
             elif i == 0 or i == nums[0]:
-                dp[0][i] = 1
+                prev[i] = 1
 
         for i in range(1,n):
+            cur = [0 for _ in range(tar+1)]
             for j in range(tar+1):
-                notpick = dp[i-1][j]
+                notpick = prev[j]
                 pick = 0
                 if j>=nums[i]:
-                    pick = dp[i-1][j-nums[i]]
-                dp[i][j] = pick + notpick
-        return dp[n-1][tar]
+                    pick = prev[j-nums[i]]
+                cur[j] = pick + notpick
+            prev = cur
+        return prev[tar]
 
         
