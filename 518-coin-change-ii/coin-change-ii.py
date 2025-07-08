@@ -16,17 +16,20 @@ class Solution:
         #         pick = solve(ind,target-coins[ind])
         #     dp[ind][target] = pick + notpick
         #     return dp[ind][target]
-        dp = [[0 for i in range(amount+ 1)] for j in range(n)]
+        # dp = [[0 for i in range(amount+ 1)] for j in range(n)]
+        prev = [0 for i in range(amount+ 1)] 
         # return solve(n-1,amount)
         for i in range(amount+1):
             if i%coins[0]==0:
-                dp[0][i]=1
+                prev[i]=1
         for i in range(1,n):
+            cur = [0 for i in range(amount+ 1)] 
             for j in range(amount+1):
-                notpick = dp[i-1][j]
+                notpick = prev[j]
                 pick = 0
                 if j>=coins[i]:
-                    pick = dp[i][j-coins[i]]
-                dp[i][j] = pick + notpick
-        return dp[n-1][amount]
+                    pick = cur[j-coins[i]]
+                cur[j] = pick + notpick
+            prev = cur
+        return prev[amount]
             
