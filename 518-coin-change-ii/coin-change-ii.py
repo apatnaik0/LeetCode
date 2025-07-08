@@ -23,13 +23,13 @@ class Solution:
             if i%coins[0]==0:
                 prev[i]=1
         for i in range(1,n):
-            cur = [0 for i in range(amount+ 1)] 
+            # cur = [0 for i in range(amount+ 1)] 
             for j in range(amount+1):
                 notpick = prev[j]
                 pick = 0
                 if j>=coins[i]:
-                    pick = cur[j-coins[i]]
-                cur[j] = pick + notpick
-            prev = cur
+                    pick = prev[j-coins[i]]
+                prev[j] = pick + notpick
+            # prev = cur
         return prev[amount]
             
