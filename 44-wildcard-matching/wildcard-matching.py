@@ -2,7 +2,7 @@ class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         n1 = len(s)
         n2 = len(p)
-        dp = [[0 for _ in range(n2+1)] for _ in range(n1+1)]
+        dp = [[False for _ in range(n2+1)] for _ in range(n1+1)]
         
         # def solve(i,j):
         #     if j==0 and i==0:
@@ -30,12 +30,13 @@ class Solution:
         for i in range(1,n1+1):
             dp[i][0] = False
         for j in range(1, n2 + 1):
-            if p[j - 1] == '*':
-                dp[0][j] = dp[0][j - 1]
-            else:
+            if p[j - 1] != '*':
                 dp[0][j] = False
-            
-
+                break
+            else:
+                dp[0][j] = dp[0][j - 1]
+                
+        
         for i in range(1,n1+1):
             for j in range(1,n2+1):
                 if s[i-1]==p[j-1] or p[j-1]=='?':
