@@ -24,13 +24,13 @@ class Solution:
         # for i in range(1,n2+1):
         #     dp[0][i] = 0
         for i in range(1,n1+1):
-            cur = [0 for _ in range(n2+1)]
-            cur[0] = 1
-            for j in range(1,n2+1):
+            # cur = [0 for _ in range(n2+1)]
+            # cur[0] = 1
+            for j in range(n2,0,-1):
                 if s[i-1]==t[j-1]:
-                    cur[j] = prev[j-1] + prev[j]
+                    prev[j] = prev[j-1] + prev[j]
                 else:
-                    cur[j] = prev[j]
-            prev = cur
+                    prev[j] = prev[j]
+            # prev = cur
         return prev[n2]
         
