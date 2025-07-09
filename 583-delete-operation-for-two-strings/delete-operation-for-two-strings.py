@@ -13,13 +13,15 @@ class Solution:
             return dp[i][j]
         n1 = len(word1)
         n2 = len(word2)
-        dp = [[0 for _ in range(n2+1)] for _ in range(n1+1)]
+        # dp = [[0 for _ in range(n2+1)] for _ in range(n1+1)]
+        prev = [0 for _ in range(n2+1)]
         # lcs = solve(n1-1,n2-1)
         for i in range(1,n1+1):
+            cur = [0 for _ in range(n2+1)]
             for j in range(1,n2+1):
                 if word1[i-1]==word2[j-1]:
-                    dp[i][j] = 1 + dp[i-1][j-1]
+                    cur[j] = 1 + prev[j-1]
                 else:
-                    dp[i][j] = max(dp[i][j-1],dp[i-1][j])
-
-        return n1 + n2 - 2*dp[n1][n2]
+                    cur[j] = max(cur[j-1],prev[j])
+            prev = cur
+        return n1 + n2 - 2*prev[n2]
