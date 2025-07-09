@@ -34,7 +34,7 @@ class Solution:
                 dp[0][j] = False
                 break
             else:
-                dp[0][j] = dp[0][j - 1]
+                dp[0][j] = True
                 
         
         for i in range(1,n1+1):
