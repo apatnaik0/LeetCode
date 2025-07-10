@@ -13,4 +13,11 @@ class Solution:
 
         n = len(prices)
         dp = [[0 for _ in range(2*k+1)] for _ in range(n+1)]
-        return solve(0,2*k)
+        # return solve(0,2*k)
+        for i in range(n-1,-1,-1):
+            for t in range(1,2*k+1):
+                if t%2==0:
+                    dp[i][t] = max(-prices[i]+dp[i+1][t-1],dp[i+1][t])
+                else:
+                    dp[i][t] = max(prices[i]+dp[i+1][t-1],dp[i+1][t])
+        return dp[0][2*k]
