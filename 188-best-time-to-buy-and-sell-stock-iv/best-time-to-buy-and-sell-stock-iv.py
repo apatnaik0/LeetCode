@@ -16,11 +16,11 @@ class Solution:
         prev = [0 for _ in range(2*k+1)]
         # return solve(0,2*k)
         for i in range(n-1,-1,-1):
-            cur = [0 for _ in range(2*k+1)]
+            # cur = [0 for _ in range(2*k+1)]
             for t in range(1,2*k+1):
                 if t%2==0:
-                    cur[t] = max(-prices[i]+prev[t-1],prev[t])
+                    prev[t] = max(-prices[i]+prev[t-1],prev[t])
                 else:
-                    cur[t] = max(prices[i]+prev[t-1],prev[t])
-            prev = cur
+                    prev[t] = max(prices[i]+prev[t-1],prev[t])
+            # prev = cur
         return prev[2*k]
