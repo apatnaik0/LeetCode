@@ -10,17 +10,35 @@ class Solution:
             if pi==-1 or nums[i]>nums[pi]:
                 ans = max(ans, 1 + solve(i+1,i))
             return ans
-        dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
-        prev = [0 for _ in range(n+1)]
+        # dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+        # prev = [0 for _ in range(n+1)]
         # return solve(0,-1)
-        for i in range(n-1,-1,-1):
-            cur = [0 for _ in range(n+1)]
-            for pi in range(i-1,-2,-1):
-                cur[pi+1] = prev[pi+1]
-                if pi==-1 or nums[i]>nums[pi]:
-                    cur[pi+1] = max(cur[pi+1], 1 + prev[i+1])
-            prev = cur
-        return prev[0]
+        # for i in range(n-1,-1,-1):
+        #     cur = [0 for _ in range(n+1)]
+        #     for pi in range(i-1,-2,-1):
+        #         cur[pi+1] = prev[pi+1]
+        #         if pi==-1 or nums[i]>nums[pi]:
+        #             cur[pi+1] = max(cur[pi+1], 1 + prev[i+1])
+        #     prev = cur
+        # return prev[0]
+        dp = [1]*n
+        ha = [i for i in range(n)]
+        maxi = int(-1e9)
+        for cur in range(n):
+            for prev in range(cur):
+                if nums[cur] > nums[prev] and dp[prev] + 1 > dp[cur]:
+                    dp[cur] = dp[prev] + 1
+                    ha[cur] = prev
+            if dp[cur]>maxi:
+                maxi = dp[cur]
+                lastindex = cur
+        ans = [nums[lastindex]]
+        while(lastindex != ha[lastindex]):
+            lastindex = ha[lastindex]
+            ans.append(nums[lastindex])
+        
+        return len(ans[::-1])
+
         
                 
 
