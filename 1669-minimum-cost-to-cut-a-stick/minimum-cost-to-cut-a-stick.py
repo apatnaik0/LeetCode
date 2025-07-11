@@ -18,9 +18,9 @@ class Solution:
         dp = [[0 for _ in range(c+2)] for _ in range(c+2)]
         # return solve(1,c)
         for i in range(c,0,-1):
-            for j in range(1,c+1):
-                if i > j:
-                    continue
+            for j in range(i,c+1):
+                # if i > j:
+                #     continue
                 mini = float('inf')
                 for k in range(i,j+1):
                     mini = min(mini,cuts[j+1] - cuts[i-1] + dp[i][k-1] + dp[k+1][j])
