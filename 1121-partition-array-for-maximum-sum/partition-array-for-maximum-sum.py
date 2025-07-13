@@ -17,5 +17,15 @@ class Solution:
             return dp[i]
 
         n = len(arr)
-        dp = [-1 for _ in range(n)]
-        return solve(0)
+        dp = [0 for _ in range(n+1)]
+        # return solve(0)
+        for i in range(n-1,-1,-1):
+            l = 0
+            maxisum = float('-inf')
+            maxi = float('-inf')
+            for ind in range(i,min(n,i+k)):
+                l+=1
+                maxi = max(maxi,arr[ind])
+                maxisum = max(maxisum, l*maxi + dp[ind+1])
+            dp[i] = maxisum
+        return dp[0]
