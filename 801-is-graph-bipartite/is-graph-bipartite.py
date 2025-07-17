@@ -13,12 +13,21 @@ class Solution:
                     return False
         return True
 
+    def dfs(self,i,n,graph,color,col):
+        color[i] = col
+        for k in graph[i]:
+            if color[k]==0:
+                if self.dfs(k,n,graph,color,col*-1) == False:
+                    return False
+            elif color[k]==color[i]:
+                return False
+        return True
 
     def isBipartite(self, graph: List[List[int]]) -> bool:
         n = len(graph)
         color = [0]*n
         for i in range(n):
             if color[i]==0:
-                if self.bfs(i,n,graph,color) == False:
+                if self.dfs(i,n,graph,color,1) == False:
                     return False
         return True
