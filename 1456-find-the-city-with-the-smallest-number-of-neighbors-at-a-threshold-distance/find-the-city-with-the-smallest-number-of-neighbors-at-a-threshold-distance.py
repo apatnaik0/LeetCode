@@ -25,6 +25,6 @@ class Solution:
             if ct<=ansct:
                 ansct = ct
                 anscity = i
-        print(adj)
+        # print(adj)
         return anscity
         
