@@ -28,11 +28,47 @@ class Solution:
         n = len(fruits)
         dp = [[-1 for _ in range(n)] for _ in range(n)]
         ans1 = sum(fruits[i][i] for i in range(n))
-        self.init(n,dp)
-        ans2 = self.solve2(n-2,n-1,dp,n,fruits)
-        self.init(n,dp)
-        ans3 = self.solve3(n-1,n-2,dp,n,fruits)
+        # self.init(n,dp)
+        # ans2 = self.solve2(n-2,n-1,dp,n,fruits)
+        # self.init(n,dp)
+        # ans3 = self.solve3(n-1,n-2,dp,n,fruits)
         
         # print(ans1,ans2,ans3)
+        # return ans1+ans2+ans3
+        # for i in range(n):
+        #     dp[0][i] = 0
+        #     dp[i][0] = 0
+
+        for i in range(n):
+            for j in range(n):
+                if i+j<n-1:
+                    dp[i][j] = 0
+                else:
+                    prev = 0
+                    if i>0 and j>0:
+                        prev = max(prev, dp[i-1][j-1])
+                    if i>0:
+                        prev = max(prev,dp[i-1][j])
+                    if i>0 and j<n-1:
+                        prev = max(prev,dp[i-1][j+1])
+                    dp[i][j] = fruits[i][j] + prev
+        ans2 = dp[n-2][n-1]
+        dp = [[-1 for _ in range(n)] for _ in range(n)]
+        for j in range(n):
+            for i in range(n):
+                if i+j<n-1:
+                    dp[i][j] = 0
+                else:
+                    prev = 0
+                    if i>0 and j>0:
+                        prev = max(prev, dp[i-1][j-1])
+                    if j>0:
+                        prev = max(prev,dp[i][j-1])
+                    if i<n-1 and j>0:
+                        prev = max(prev,dp[i+1][j-1])
+                    dp[i][j] = fruits[i][j] + prev
+        ans3 = dp[n-1][n-2]
+        print(ans1,ans2,ans3)
         return ans1+ans2+ans3
-        
+
+            
