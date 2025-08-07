@@ -40,7 +40,7 @@ class Solution:
         #     dp[i][0] = 0
 
         for i in range(n):
-            for j in range(n):
+            for j in range(n-1,-1,-1):
                 if i+j<n-1:
                     dp[i][j] = 0
                 else:
@@ -55,7 +55,7 @@ class Solution:
         ans2 = dp[n-2][n-1]
         dp = [[-1 for _ in range(n)] for _ in range(n)]
         for j in range(n):
-            for i in range(n):
+            for i in range(n-1,-1,-1):
                 if i+j<n-1:
                     dp[i][j] = 0
                 else:
