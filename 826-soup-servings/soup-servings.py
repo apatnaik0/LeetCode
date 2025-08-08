@@ -21,5 +21,6 @@ class Solution:
     def soupServings(self, n: int) -> float:
         if n>4450:
             return 1.0
+
         dp = [[-1 for _ in range(n+1)] for _ in range(n+1)]
         return self.solve(n,n,dp)
