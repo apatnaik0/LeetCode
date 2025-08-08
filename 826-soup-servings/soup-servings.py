@@ -10,10 +10,10 @@ class Solution:
         if dp[a][b] != -1:
             return dp[a][b]
         
-        o1 = 0.25 * self.solve(a-100,b,dp)
-        o2 = 0.25 * self.solve(a-75,b-25,dp)
-        o3 = 0.25 * self.solve(a-50,b-50,dp)
-        o4 = 0.25 * self.solve(a-25,b-75,dp)
+        o1 = 0.25 * self.solve(a-4,b,dp)
+        o2 = 0.25 * self.solve(a-3,b-1,dp)
+        o3 = 0.25 * self.solve(a-2,b-2,dp)
+        o4 = 0.25 * self.solve(a-1,b-3,dp)
 
         dp[a][b] = o1 + o2 + o3 + o4
         return dp[a][b]
@@ -21,6 +21,6 @@ class Solution:
     def soupServings(self, n: int) -> float:
         if n>4450:
             return 1.0
-
+        n=(n+24)//25
         dp = [[-1 for _ in range(n+1)] for _ in range(n+1)]
         return self.solve(n,n,dp)
