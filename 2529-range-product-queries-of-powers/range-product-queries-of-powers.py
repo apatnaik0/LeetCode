@@ -13,8 +13,6 @@ class Solution:
             if i==0:
                 ans.append(prepro[j]%mod)
             else:
-                high = j
-                low = i-1 if i>0 else 0
-                ans.append((prepro[high]//prepro[low])%mod)
+                ans.append((prepro[j]//prepro[i-1])%mod)
         return ans
 
