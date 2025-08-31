@@ -1,44 +1,48 @@
 class Solution:
+    def boxind(self,row,col):
+            return (row//3)*3 + col//3
+
+    def solve(self,ind,board,empty, row, col, box):
+        if ind == len(empty):
+            return True
+        r,c = empty[ind]
+
+        for num in '123456789':
+            if num not in row[r] and num not in col[c] and num not in box[self.boxind(r,c)]:
+                board[r][c] = num
+                row[r].add(num)
+                col[c].add(num)
+                box[self.boxind(r,c)].add(num)
+
+                if self.solve(ind+1,board,empty, row, col, box):
+                    return True
+
+                board[r][c] = '.'
+                row[r].remove(num)
+                col[c].remove(num)
+                box[self.boxind(r,c)].remove(num)
+
+        return False
+
+
     def solveSudoku(self, board: List[List[str]]) -> None:
-        rows = [set() for _ in range(9)]
-        cols = [set() for _ in range(9)]
-        boxes = [set() for _ in range(9)]
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        row = [set() for _ in range(9)]
+        col = [set() for _ in range(9)]
+        box = [set() for _ in range(9)]
         empty = []
 
-        # Initialize sets and collect empty positions
         for i in range(9):
             for j in range(9):
-                if board[i][j] == '.':
-                    empty.append((i, j))
+                if board[i][j]=='.':
+                    empty.append((i,j))
                 else:
-                    c = board[i][j]
-                    rows[i].add(c)
-                    cols[j].add(c)
-                    boxes[(i // 3) * 3 + (j // 3)].add(c)
+                    row[i].add(board[i][j])
+                    col[j].add(board[i][j])
+                    box[self.boxind(i,j)].add(board[i][j])
 
-        def solve(idx):
-            if idx == len(empty):
-                return True  # Done!
-
-            i, j = empty[idx]
-            b = (i // 3) * 3 + (j // 3)
-
-            for c in '123456789':
-                if c not in rows[i] and c not in cols[j] and c not in boxes[b]:
-                    board[i][j] = c
-                    rows[i].add(c)
-                    cols[j].add(c)
-                    boxes[b].add(c)
-
-                    if solve(idx + 1):
-                        return True
-
-                    # Backtrack
-                    board[i][j] = '.'
-                    rows[i].remove(c)
-                    cols[j].remove(c)
-                    boxes[b].remove(c)
-
-            return False
-
-        solve(0)
+        self.solve(0,board,empty, row, col, box)
+        return board
+        
