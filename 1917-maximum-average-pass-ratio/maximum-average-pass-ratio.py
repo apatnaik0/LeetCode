@@ -13,7 +13,6 @@ class Solution:
             t += 1
             heappush(pq,(self.jump(p,t),p,t))
         
-        print(pq)
         ans = 0
         for i in range(len(pq)):
             j,p,t = heappop(pq)
