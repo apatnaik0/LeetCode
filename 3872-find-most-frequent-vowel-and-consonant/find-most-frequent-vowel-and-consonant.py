@@ -6,7 +6,7 @@ class Solution:
         
         vm,cm = 0,0
         for k,v in hm.items():
-            if k in 'aeiou':
+            if k in set('aeiou'):
                 vm = max(vm,v)
             else:
                 cm = max(cm,v)
