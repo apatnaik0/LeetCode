@@ -1,4 +1,4 @@
-import bisect
+# import bisect
 class Router:
 
     def __init__(self, memoryLimit: int):
@@ -30,15 +30,15 @@ class Router:
 
     def getCount(self, destination: int, startTime: int, endTime: int) -> int:
         packets = self.dest_map[destination]
-        # return self.bsright(packets,endTime) - self.bsleft(packets,startTime)
-        return bisect.bisect_right(packets,endTime)-bisect.bisect_left(packets,startTime)
+        return self.bsright(packets,endTime) - self.bsleft(packets,startTime)
+        # return bisect.bisect_right(packets,endTime)-bisect.bisect_left(packets,startTime)
 
     def bsleft(self, arr, time):
         low = 0
         high = len(arr)-1
         while low<=high:
             mid = (low+high)//2
-            if arr[mid][2] >= time:
+            if arr[mid] >= time:
                 high = mid-1
             else:
                 low = mid+1
@@ -49,7 +49,7 @@ class Router:
         high = len(arr)-1
         while low<=high:
             mid = (low+high)//2
-            if arr[mid][2] <= time:
+            if arr[mid] <= time:
                 low = mid+1
             else:
                 high = mid-1
