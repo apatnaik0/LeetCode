@@ -12,13 +12,19 @@ class Solution:
 
     def minScoreTriangulation(self, values: List[int]) -> int:
         n = len(values)
-        dp = [[0 for _ in range(n)] for _ in range(n)]
-        # ans = self.helper(dp,0,n-1,values,n)
-        # return ans
-        for i in range(n-1,-1,-1):
-            for j in range(i+1,n):
-                for k in range(i + 1, j):
-                    dp[i][j] = min(dp[i][j] if dp[i][j]!=0 else float('inf'), dp[i][k] + dp[k][j] + values[i]*values[j]*values[k])
+        dp = [[0] * n for _ in range(n)]
+
+        # Only intervals with length >= 3 matter (at least a triangle)
+        for length in range(3, n+1):             # interval length
+            for i in range(n - length + 1):
+                j = i + length - 1
+                dp[i][j] = float('inf')          # initialize large
+                for k in range(i+1, j):          # try every possible third vertex
+                    dp[i][j] = min(
+                        dp[i][j],
+                        dp[i][k] + dp[k][j] + values[i]*values[j]*values[k]
+                    )
+
         return dp[0][n-1]
 
 
