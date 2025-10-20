@@ -3,13 +3,17 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                if i>=j:
-                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        n = len(matrix)
+        m = len(matrix)
 
-        for i in range(len(matrix)):
+        for i in range(n):
+            for j in range(m):
+                if i < j:
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        for i in range(n):
             matrix[i].reverse()
+
         
 
         
