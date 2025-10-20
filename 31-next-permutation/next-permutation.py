@@ -9,20 +9,25 @@ class Solution:
             if nums[i]<nums[i+1]:
                 ind = i
                 break
+            
         if ind == -1:
             return nums.reverse()
+        
         for i in range(n-1,i,-1):
-            if nums[i]>nums[ind]:
+            if nums[i] > nums[ind]:
                 nums[i], nums[ind] = nums[ind], nums[i]
                 break
+
+        l = ind + 1
+        r = n - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+
         
-        l = ind+1
-        r = n-1
-        while l<r:
-            nums[l],nums[r] = nums[r],nums[l]
-            l+=1
-            r-=1
-        #
+
         
+
 
         
