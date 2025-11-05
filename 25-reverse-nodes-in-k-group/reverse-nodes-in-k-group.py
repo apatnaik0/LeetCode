@@ -4,44 +4,40 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        def kthnode(head,k):
-            temp = head
-            while temp and k>1:
-                temp = temp.next
-                k-=1
-            return temp
+    def rev(self,head):
+        cur = head
+        prev = None
+        while cur:
+            front = cur.next
+            cur.next = prev
+            prev = cur
+            cur = front
+        return prev
 
-        def rev(head):
-            temp = head
-            prev = None
-            while temp.next:
-                front = temp.next
-                temp.next = prev
-                prev = temp
-                temp = front
-            temp.next = prev
-            return temp
-        
-        curr = head
-        prev=None
-        while curr:
-            kth = kthnode(curr,k)
+    def kth(self, head, k):
+        while head and k>1:
+            head = head.next
+            k -= 1
+        return head
+
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        cur = head
+        prev = None
+        while cur:
+            kth = self.kth(cur,k)
             if not kth:
                 if prev:
-                    prev.next = curr
+                    prev.next = cur
                 break
-            newhead = kth.next
+
+            front = kth.next
             kth.next = None
-            rev(curr)
-            if curr == head:
+            self.rev(cur)
+            if cur == head:
                 head = kth
             else:
                 prev.next = kth
-            prev = curr
-            curr = newhead
+            prev = cur
+            cur = front
         return head
-
             
-
-        
