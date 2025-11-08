@@ -1,9 +1,9 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
+        ml = 0
+        mr = 0
         l = 0
         r = len(height)-1
-        ml = height[l]
-        mr = height[r]
         tot = 0
         while l<=r:
             if height[l]<height[r]:
