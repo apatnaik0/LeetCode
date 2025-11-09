@@ -1,17 +1,19 @@
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def rec(i,t):
-            if i == len(candidates):
-                if t == 0:
-                    final.append(ans[:])
-                return
-            if candidates[i]<=t:
-                ans.append(candidates[i])
-                rec(i,t-candidates[i])
-                ans.pop()
-            rec(i+1,t)
+    def rec(self,sub, i, ans, candidates, target):
+        if i == len(candidates):
+            if target == 0:
+                ans.append(sub[:])
+            return ans
+        if candidates[i] <= target:
+            sub.append(candidates[i])
+            self.rec(sub, i, ans, candidates, target - candidates[i])
+            sub.pop()
+        self.rec(sub, i+1, ans, candidates, target)
+        return ans
 
-        final = []
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         ans = []
-        rec(0,target)
-        return final
+        sub = []
+        i = 0
+        ans = self.rec(sub,i, ans, candidates, target)
+        return ans
