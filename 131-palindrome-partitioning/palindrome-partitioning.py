@@ -1,27 +1,19 @@
 class Solution:
-    def partition(self, s: str) -> List[List[str]]:
-        def ispalin(s):
-            l = 0
-            r = len(s)-1
-            while l<r:
-                if s[l]!=s[r]:
-                    return False
-                l+=1
-                r-=1
-            return True
-
-        def solve(ind):
-            if ind == len(s):
-                ans.append(sub[:])
-                return
-            for i in range(ind,len(s)):
-                if ispalin(s[ind:i+1]):
-                    sub.append(s[ind:i+1])
-                    solve(i+1)
-                    sub.pop()
-
-        sub = []
-        ans = []
-        solve(0)
-        return ans
+    def rec(self, ind, ans, sub, s):
+        if ind == len(s):
+            ans.append(sub[:])
+            return ans
         
+        for i in range(ind,len(s)):
+            s1 = s[ind:i+1]
+            if s1[:] == s1[::-1]:
+                sub.append(s1)
+                self.rec(i+1,ans,sub,s)
+                sub.pop()
+        return ans
+
+    def partition(self, s: str) -> List[List[str]]:
+        ans = []
+        sub = []
+        ans = self.rec(0,ans,sub,s)
+        return ans
