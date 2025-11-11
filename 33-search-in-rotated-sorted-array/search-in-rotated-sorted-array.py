@@ -1,19 +1,33 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
+        n = len(nums)
         low = 0
-        high = len(nums)-1
+        high = n-1
+        
         while low<=high:
             mid = (low+high)//2
-            if nums[mid]==target:
+            # print(low,mid,high)
+            if nums[mid] == target:
                 return mid
-            if nums[low]<=nums[mid]:
-                if nums[low]<=target and nums[mid]>=target:
-                    high = mid-1
+            
+            if nums[mid] >= nums[low]:
+                # print('left sorted')
+                if target >= nums[low] and target < nums[mid]:
+                    # print('in sorted')
+                    high = mid - 1
+                    # print(low,high)
                 else:
-                    low = mid+1
-            else:
-                if nums[mid]<=target and nums[high]>=target:
-                    low = mid+1
+                    # print('not in sorted')
+                    low = mid + 1
+                    # print(low,high)
+            elif nums[high] >= nums[mid]:
+                # print('right sorted')
+                if target > nums[mid] and target <= nums[high]:
+                    # print('in sorted')
+                    low = mid + 1
+                    # print(low,high)
                 else:
-                    high = mid-1
+                    # print('not in sorted')
+                    high = mid - 1
+                    # print(low,high)
         return -1
