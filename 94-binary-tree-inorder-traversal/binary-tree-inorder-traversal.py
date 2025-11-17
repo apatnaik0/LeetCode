@@ -5,15 +5,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def inorder(self,node, ans):
-        if not node:
-            return ans
-        self.inorder(node.left,ans)
-        ans.append(node.val)
-        self.inorder(node.right,ans)
-        return ans
-
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         ans = []
-        ans = self.inorder(root,ans)
+        cur = root
+        while cur:
+            if cur.left:
+                node = cur.left
+                while node.right and node.right!=cur:
+                    node = node.right
+                
+                if not node.right:
+                    node.right = cur
+                    cur = cur.left
+                else:
+                    node.right = None
+                    ans.append(cur.val)
+                    cur = cur.right
+            else:
+                ans.append(cur.val)
+                cur = cur.right
         return ans
+                    
