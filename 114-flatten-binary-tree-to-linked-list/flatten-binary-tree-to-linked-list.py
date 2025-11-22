@@ -9,36 +9,8 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-
-        # prev = [None]
-        # def flat(root):
-        #     if not root:
-        #         return
-        #     flat(root.right)
-        #     flat(root.left)
-        #     root.right = prev[0]
-        #     root.left = None
-        #     prev[0] = root
-        # flat(root)
-        # return root
-
-        # if not root:
-        #     return None
-        # st = []
-        # st.append(root)
-        # while st:
-        #     node = st.pop()
-        #     if node.right:
-        #         st.append(node.right)
-        #     if node.left:
-        #         st.append(node.left)
-        #     if st:
-        #         node.right = st[-1]
-        #     node.left = None
-        # return root
-
         cur = root
-        while cur:  
+        while cur:
             if cur.left:
                 node = cur.left
                 while node.right:
@@ -48,4 +20,3 @@ class Solution:
                 cur.left = None
             cur = cur.right
         return root
-        
