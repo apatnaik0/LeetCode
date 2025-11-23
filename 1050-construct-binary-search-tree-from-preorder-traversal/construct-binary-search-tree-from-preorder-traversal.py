@@ -5,18 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
-        def build(preorder,i,ub):
-            if (i[0]==len(preorder) )or preorder[i[0]] >= ub:
-                return None
-            root = TreeNode(preorder[i[0]])
-            i[0] += 1
-            root.left = build(preorder, i, root.val)
-            root.right = build(preorder, i, ub)
-            return root
-
-        i = [0]
-        ub = float('inf')
-        root = build(preorder,i,ub)
-        return root
+    def bt(self,preorder,ub):
+        if self.ind >= len(preorder) or preorder[self.ind]>ub:
+            return None
         
+        node = TreeNode(preorder[self.ind])
+        self.ind += 1
+        node.left = self.bt(preorder,node.val)
+        node.right = self.bt(preorder,ub)
+        return node
+
+    def bstFromPreorder(self, preorder: List[int]) -> Optional[TreeNode]:
+        self.ind = 0
+        ub = float('inf')
+        return self.bt(preorder,ub)
