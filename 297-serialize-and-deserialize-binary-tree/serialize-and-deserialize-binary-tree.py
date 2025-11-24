@@ -9,52 +9,58 @@ class Codec:
 
     def serialize(self, root):
         """Encodes a tree to a single string.
-                
+        
         :type root: TreeNode
         :rtype: str
         """
         if not root:
-            return ""
-        ans = ""
+            return ''
+        s = ''
         q = deque()
         q.append(root)
+        s += str(root.val) + ','
         while q:
-            for i in range(len(q)):
+            l = len(q)
+            for i in range(l):
                 node = q.popleft()
-                if not node:
-                    ans += '#,'
-                else:
-                    ans += str(node.val) + ','
+                if node.left:
                     q.append(node.left)
+                    s += str(node.left.val) + ','
+                else:
+                    s += '#' + ','
+                if node.right:
                     q.append(node.right)
-        return ans
-        
+                    s += str(node.right.val) + ','
+                else:
+                    s += '#' + ','
+        return s[:-1]
+
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
         :type data: str
         :rtype: TreeNode
         """
-        if data == "":
+        if data == '':
             return None
-        nodes = data.split(',')
-        root = TreeNode(nodes.pop(0))
+        s = data.split(',')
+        root = TreeNode(s.pop(0))
         q = deque()
         q.append(root)
         while q:
             for i in range(len(q)):
                 node = q.popleft()
-                left = nodes.pop(0)
-                if left!='#':
-                    newnode = TreeNode(left)
-                    node.left = newnode
-                    q.append(newnode)
-
-                right = nodes.pop(0)
-                if right!='#':
-                    newnode = TreeNode(right)
-                    node.right = newnode
-                    q.append(newnode)
+                l = s.pop(0)
+                if l!='#':
+                    new = TreeNode(l)
+                    node.left = new
+                    q.append(new)
+                
+                r = s.pop(0)
+                if r!='#':
+                    new = TreeNode(r)
+                    node.right = new
+                    q.append(new)
         return root
 
         
