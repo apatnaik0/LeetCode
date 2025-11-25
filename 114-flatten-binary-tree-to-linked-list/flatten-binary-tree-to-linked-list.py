@@ -19,4 +19,5 @@ class Solution:
                 cur.right = cur.left
                 cur.left = None
             cur = cur.right
-        return root
+        
+        
