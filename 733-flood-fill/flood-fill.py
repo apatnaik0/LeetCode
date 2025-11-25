@@ -22,7 +22,7 @@ class Solution:
                     nr = r + delr[d]
                     nc = c + delc[d]
 
-                    if 0 <= nr < n and 0<= nc < m and vis[nr][nc]==0 and newimage[nr][nc] == old and newimage[nr][nc]!=color:
+                    if 0 <= nr < n and 0<= nc < m and vis[nr][nc]==0 and newimage[nr][nc] == old:
                         newimage[nr][nc] = color
                         q.append((nr,nc))
                         vis[nr][nc] = 1
