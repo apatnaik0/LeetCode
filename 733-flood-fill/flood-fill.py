@@ -1,28 +1,30 @@
 class Solution:
-
-    def bfs(self,sr,sc,color,old,newimage,n,m,vis):
-        q = deque()
-        q.append([sr,sc])
-        vis[sr][sc]=1
-        delc = [0,1,0,-1]
-        delr = [-1,0,1,0]
-        while q:
-            node = q.popleft()
-            newimage[node[0]][node[1]] = color
-            for i in range(4):
-                if node[0]+delr[i]>=0 and node[0]+delr[i]<n and node[1]+delc[i]>=0 and node[1]+delc[i]<m and newimage[node[0]+delr[i]][node[1]+delc[i]]==old and vis[node[0]+delr[i]][node[1]+delc[i]]!=1:
-                    q.append([node[0]+delr[i],node[1]+delc[i]])
-                    vis[node[0]+delr[i]][node[1]+delc[i]]=1
-        return newimage
-
-
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        q = deque()
+        newimage = image[:]
         old = image[sr][sc]
         if old == color:
             return image
-        newimage = image[:]
-        n = len(newimage)
-        m = len(newimage[0])
+        n = len(image)
+        m = len(image[0])
         vis = [[0 for _ in range(m)] for _ in range(n)]
-        return self.bfs(sr,sc,color,old,newimage,n,m,vis)
-        
+        newimage[sr][sc] = color
+        q.append((sr,sc))
+        delr = [0,0,1,-1]
+        delc = [1,-1,0,0]
+
+        while q:
+            l = len(q)
+            for _ in range(l):
+                r,c = q.popleft()
+                
+                for d in range(4):
+                    nr = r + delr[d]
+                    nc = c + delc[d]
+
+                    if 0 <= nr < n and 0<= nc < m and vis[nr][nc]==0 and newimage[nr][nc] == old and newimage[nr][nc]!=color:
+                        newimage[nr][nc] = color
+                        q.append((nr,nc))
+                        vis[nr][nc] = 1
+        return newimage
+                
