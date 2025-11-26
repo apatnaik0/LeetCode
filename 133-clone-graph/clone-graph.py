@@ -12,7 +12,8 @@ class Solution:
         if not node:
             return node
         
-        q = deque([node])
+        q = deque()
+        q.append(node)
         clones = {node.val:Node(node.val)}
 
         while q:
