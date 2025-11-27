@@ -1,4 +1,18 @@
 class Solution:
+    def bfs(self,graph,color,i,n,col):
+        color[i] = col
+        q = deque()
+        q.append(i)
+        while q:
+            node = q.popleft()
+            for k in graph[node]:
+                if color[k] == 0:
+                    q.append(k)
+                    color[k] = -1 * color[node]
+                elif color[k] == color[node]:
+                    return False
+        return True
+
     def dfs(self, graph, color, i, n , col):
         color[i] = col
         for k in graph[i]:
@@ -14,6 +28,6 @@ class Solution:
         color = [0 for _ in range(n)]
         for i in range(n):
             if color[i] == 0:
-                if self.dfs(graph, color, i, n, 1) == False:
+                if self.bfs(graph, color, i, n, 1) == False:
                     return False
         return True
