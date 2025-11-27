@@ -38,6 +38,7 @@ class Solution:
                 # print(grid[i][j])
                 if grid[i][j]=='1' and self.vis[i][j]==0:
                     # print('inside if')
+                    self.vis[i][j] = 1
                     self.dfs(grid,i,j,m,n)
                     ct += 1
         
