@@ -12,5 +12,11 @@ class Solution:
         
     def lengthOfLIS(self, nums: List[int]) -> int:
         n = len(nums)
-        dp = [[-1 for _ in range(n+1)] for _ in range(n+1)]
-        return self.solve(0,-1,nums,n,dp)
+        dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+        # return self.solve(0,-1,nums,n,dp)
+        for i in range(n-1,-1,-1):
+            for pi in range(i-1,-2,-1):
+                dp[i][pi+1] = dp[i+1][pi+1]
+                if pi == -1 or nums[i]>nums[pi]:
+                    dp[i][pi+1] = max(dp[i][pi+1],1+ dp[i+1][i+1])
+        return dp[0][0]
