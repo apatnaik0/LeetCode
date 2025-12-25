@@ -1,42 +1,24 @@
 class Solution:
+    def solve(self,nums,t,i,dp):
+        if i == 0:
+            return t == nums[0]
+        if t == 0:
+            return True
+        if dp[i][t]!=-1:
+            return dp[i][t]
+        pick = False
+        if t >= nums[i]:
+            pick = self.solve(nums,t-nums[i],i-1,dp)
+        not_pick = self.solve(nums,t,i-1,dp)
+        dp[i][t] = pick or not_pick
+        return dp[i][t]
+
     def canPartition(self, nums: List[int]) -> bool:
-        # def solve(ind,t):
-        #     if t==0:
-        #         return True
-        #     if ind==0:
-        #         return nums[0]==t
-            
-        #     if dp[ind][t]!=-1:
-        #         return dp[ind][t]
-            
-        #     notpick = solve(ind-1,t)
-        #     pick = False
-        #     if nums[ind]<=t:
-        #         pick = solve(ind-1,t-nums[ind])
-        #     dp[ind][t] = pick or notpick
-        #     return dp[ind][t]
-        
         s = 0
         for i in nums:
             s += i
-        if s%2:
+        if s%2 != 0:
             return False
-        prev = [False for _ in range(s//2+1)]
-        # return solve(len(nums)-1,s//2)
-        for i in range(len(nums)):
-            prev[0] = True
-        if nums[0]<=s//2+1:
-            prev[nums[0]] = True
-    
-        for i in range(1,len(nums)):
-            cur = [False for _ in range(s//2+1)]
-            for j in range(1,s//2+1):
-                pick = False
-                if nums[i]<=j:
-                    pick = prev[j-nums[i]]
-                notpick = prev[j]
-                cur[j] = pick or notpick
-            prev = cur
-        return prev[s//2]
-
-            
+        n = len(nums)
+        dp = [[-1 for _ in range(s//2+1)] for _ in range(n)]
+        return self.solve(nums,s//2,n-1,dp)
