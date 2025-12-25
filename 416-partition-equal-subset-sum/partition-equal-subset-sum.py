@@ -20,5 +20,17 @@ class Solution:
         if s%2 != 0:
             return False
         n = len(nums)
-        dp = [[-1 for _ in range(s//2+1)] for _ in range(n)]
-        return self.solve(nums,s//2,n-1,dp)
+        dp = [[False for _ in range(s//2+1)] for _ in range(n)]
+        # return self.solve(nums,s//2,n-1,dp)
+        for i in range(n):
+            dp[i][0] == True
+        for j in range(s//2+1):
+            dp[0][j] = (nums[0]==j)
+        for i in range(1,n):
+            for j in range(1,s//2+1):
+                pick = False
+                if j >= nums[i]:
+                    pick = dp[i-1][j-nums[i]]
+                not_pick = dp[i-1][j]
+                dp[i][j] = pick or not_pick
+        return dp[n-1][s//2]
