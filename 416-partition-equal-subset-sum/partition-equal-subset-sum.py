@@ -22,15 +22,19 @@ class Solution:
         n = len(nums)
         dp = [[False for _ in range(s//2+1)] for _ in range(n)]
         # return self.solve(nums,s//2,n-1,dp)
+        prev = [False for _ in range(s//2+1)]
         for i in range(n):
-            dp[i][0] == True
+            prev[0] = True
         for j in range(s//2+1):
-            dp[0][j] = (nums[0]==j)
+            prev[j] = (nums[0]==j)
         for i in range(1,n):
+            cur = [False for _ in range(s//2+1)]
+            cur[0] = True
             for j in range(1,s//2+1):
                 pick = False
                 if j >= nums[i]:
-                    pick = dp[i-1][j-nums[i]]
-                not_pick = dp[i-1][j]
-                dp[i][j] = pick or not_pick
-        return dp[n-1][s//2]
+                    pick = prev[j-nums[i]]
+                not_pick = prev[j]
+                cur[j] = pick or not_pick
+            prev = cur
+        return prev[s//2]
