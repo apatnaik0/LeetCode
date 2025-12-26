@@ -14,5 +14,12 @@ class Solution:
         c = len(cuts)
         cuts.sort()
         cuts = [0] + cuts + [n]
-        dp = [[-1 for _ in range(c+2)] for _ in range(c+2)]
-        return self.solve(1,c,cuts,dp)
+        dp = [[0 for _ in range(c+2)] for _ in range(c+2)]
+        # return self.solve(1,c,cuts,dp)
+        for i in range(c,0,-1):
+            for j in range(i,c+1):
+                mini = float('inf')
+                for ind in range(i,j+1):
+                    mini = min(mini, cuts[j+1] - cuts[i-1] + dp[i][ind-1] + dp[ind+1][j])
+                dp[i][j] = mini
+        return dp[1][c]
