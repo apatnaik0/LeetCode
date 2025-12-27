@@ -3,13 +3,9 @@ class Solution:
         hmap = {}
         n = len(nums)
         for i in range(n):
-            res = target - nums[i]
-            # print(res, target, nums[i])
-            if res in hmap.keys():
-                # print('enter if')
-                return [hmap[res], i]
+            d = target - nums[i]
+            if d in hmap:
+                return [i,hmap[d]]
             else:
-                # print('enter else')
                 hmap[nums[i]] = i
-            # print(hmap)
-        
+        return 
