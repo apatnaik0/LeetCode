@@ -8,20 +8,18 @@ class Solution:
                 continue
             j = i+1
             k = n-1
-            while j<k:
-                s = nums[i]+nums[j]+nums[k]
+            while j < k:
+                s = nums[i] + nums[j] + nums[k]
                 if s == 0:
                     ans.append([nums[i],nums[j],nums[k]])
                     j += 1
                     k -= 1
-                    while j<k and nums[j-1]==nums[j]:
+                    while j<k and nums[j-1] == nums[j]:
                         j += 1
-                    while j<k and nums[k+1]==nums[k]:
+                    while j<k and nums[k] == nums[k+1]:
                         k -= 1
-                elif s>0:
-                    k -= 1
-                    
+                elif s > 0:
+                    k -=1
                 else:
                     j += 1
-                    
         return ans
