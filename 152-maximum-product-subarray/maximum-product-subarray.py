@@ -2,8 +2,8 @@ class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         pre = 1
         suf = 1
+        ans = float('-inf')
         n = len(nums)
-        maxi = nums[0]
         for i in range(n):
             if pre == 0:
                 pre = 1
@@ -11,5 +11,5 @@ class Solution:
                 suf = 1
             pre *= nums[i]
             suf *= nums[n-i-1]
-            maxi = max(maxi,pre,suf)
-        return maxi
+            ans = max(ans,pre,suf)
+        return ans
