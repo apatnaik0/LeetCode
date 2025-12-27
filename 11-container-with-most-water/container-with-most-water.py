@@ -3,12 +3,12 @@ class Solution:
         n = len(height)
         l = 0
         r = n-1
-        ans = 0
-        while l<r:
+        maxi = 0
+        while l < r:
             if height[l] < height[r]:
-                ans = max(ans,(r-l)* height[l])
+                maxi = max(maxi,height[l]*(r-l))
                 l += 1
             else:
-                ans = max(ans,(r-l)* height[r])
+                maxi = max(maxi,height[r]*(r-l))
                 r -= 1
-        return ans
+        return maxi
