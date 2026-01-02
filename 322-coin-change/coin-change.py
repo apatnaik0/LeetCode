@@ -19,25 +19,27 @@ class Solution:
 
     def coinChange(self, coins: List[int], amount: int) -> int:
         n = len(coins)
-        dp = [[0 for _ in range(amount+1)] for _ in range(n)]
-        ans = self.solve(dp,coins,n-1,amount)
-
+        # dp = [[0 for _ in range(amount+1)] for _ in range(n)]
+        # ans = self.solve(dp,coins,n-1,amount)
+        prev = [0 for _ in range(amount+1)]
         for amt in range(amount+1):
             if amt % coins[0] == 0:
-                dp[0][amt] = amt // coins[0]
+                prev[amt] = amt // coins[0]
             else:
-                dp[0][amt] = float('inf')
+                prev[amt] = float('inf')
         
         for i in range(1,n):
+            cur = [0 for _ in range(amount+1)]
             for amt in range(amount+1):
                 pick = float('inf')
                 if amt >= coins[i]:
-                    pick = 1+dp[i][amt-coins[i]]
-                not_pick = dp[i-1][amt]
+                    pick = 1+cur[amt-coins[i]]
+                not_pick = prev[amt]
                 
-                dp[i][amt] = min(pick,not_pick)
+                cur[amt] = min(pick,not_pick)
+            prev = cur
 
-        if dp[n-1][amt] >= float('inf'):
+        if prev[amt] >= float('inf'):
             return -1
         else:
-            return dp[n-1][amt]
+            return prev[amt]
