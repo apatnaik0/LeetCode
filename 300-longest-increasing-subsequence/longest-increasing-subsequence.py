@@ -16,16 +16,18 @@ class Solution:
 
     def lengthOfLIS(self, nums: List[int]) -> int:
         n = len(nums)
-        dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+        # dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
         # return self.solve(n,dp,-1,0,nums)
-        
+        nxt = [0 for _ in range(n+1)]
         for i in range(n-1,-1,-1):
+            cur = [0 for _ in range(n+1)]
             for pi in range(i-1,-2,-1):
                 pick = float('-inf')
                 if pi == -1 or nums[i]>nums[pi]:
-                    pick = 1 + dp[i+1][i+1]
-                not_pick = dp[i+1][pi+1]
+                    pick = 1 + nxt[i+1]
+                not_pick = nxt[pi+1]
 
-                dp[i][pi+1] = max(pick,not_pick)
+                cur[pi+1] = max(pick,not_pick)
+            nxt = cur
         
-        return dp[0][0]
+        return nxt[0]
