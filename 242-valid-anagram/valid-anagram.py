@@ -1,21 +1,20 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        ls = len(s)
-        lt = len(t)
-        if ls != lt:
+        if len(s)!= len(t):
             return False
-        smap = defaultdict(int)
+
         tmap = defaultdict(int)
+        smap = defaultdict(int)
 
         for i,j in zip(s,t):
             smap[i] += 1
             tmap[j] += 1
         
-        if len(smap) != len(tmap):
+        if len(tmap)!=len(smap):
             return False
         
-        for k in smap.keys():
-            if smap[k] != tmap[k]:
+        for i in tmap.keys():
+            if tmap[i] != smap[i]:
                 return False
         
         return True
