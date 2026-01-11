@@ -9,4 +9,4 @@ class Solution:
                 if start >= 0 and dp[start] and s[start:i] == word:
                     dp[i] = True
                     break
-        return dp[-1]
+        return dp[n]
