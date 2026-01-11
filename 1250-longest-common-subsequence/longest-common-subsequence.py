@@ -20,14 +20,17 @@ class Solution:
         n1 = len(text1)
         n2 = len(text2)
 
-        dp = [[0 for _ in range(n2+1)] for _ in range(n1+1)]
+        # dp = [[0 for _ in range(n2+1)] for _ in range(n1+1)]
+        prev = [0 for _ in range(n2+1)]
 
         # return self.solve(n1-1,n2-1,text1,text2,dp)
         for i in range(1,n1+1):
+            cur = [0 for _ in range(n2+1)]
             for j in range(1,n2+1):
                 if text1[i-1]==text2[j-1]:
-                    ans = 1 + dp[i-1][j-1]
+                    ans = 1 + prev[j-1]
                 else:
-                    ans = max(dp[i-1][j],dp[i][j-1])
-                dp[i][j] = ans
-        return dp[n1][n2]
+                    ans = max(prev[j],cur[j-1])
+                cur[j] = ans
+            prev = cur
+        return prev[n2]
