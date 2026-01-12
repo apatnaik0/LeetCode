@@ -4,7 +4,7 @@ class Solution:
         prev2 = 0
         for i in range(1,len(nums)):
             pick = nums[i]
-            if i>1:
+            if i > 1:
                 pick += prev2
             nonpick = prev
             cur = max(pick,nonpick)
