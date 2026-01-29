@@ -1,5 +1,6 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
         adj = [[] for _ in range(numCourses)]
         indegree = [0] * numCourses
         for i,j in prerequisites:
