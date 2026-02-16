@@ -1,11 +1,11 @@
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
   RETURN (
-      SELECT MAX(salary)
-      FROM (
-          SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
-          FROM Employee
-      ) t
-      WHERE rnk = N
+    select max(salary)
+    from (
+        select salary, dense_rank() over (order by salary desc) as rnk
+        from employee
+    ) t
+    where rnk = N
   );
 END
