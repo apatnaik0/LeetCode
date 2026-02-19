@@ -22,7 +22,7 @@ class Solution:
         while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
-        head2 = self.rev(slow)
+        head2 = self.rev(slow.next)
         slow.next = None
 
         while head and head2:
