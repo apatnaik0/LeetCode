@@ -1,14 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        hmap = {}
         n = len(s)
+        ans = 0
         l = 0
         r = 0
-        ml = 0
-        vis = [-1]*256
+
         while r < n:
-            if vis[ord(s[r])]!=-1:
-                l = max(l, vis[ord(s[r])]+1)
-            vis[ord(s[r])]=r
-            ml = max(ml,r-l+1)
+            if s[r] in hmap:
+                l = max(l, hmap[s[r]] + 1)
+            hmap[s[r]] = r
+            ans = max(ans,r-l+1)
             r += 1
-        return ml
+            
+        
+        return ans
