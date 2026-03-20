@@ -14,12 +14,12 @@ class Solution:
         suf = 1
         for i in range(n-2,-1,-1):
             suf = suf * nums[i+1]
-            suffix_product[i] = suf
+            prefix_product[i] *= suf
 
         # print(suffix_product)
         
-        ans = [0]*n
-        for i in range(n):
-            ans[i] = prefix_product[i] * suffix_product[i]
+        # ans = [0]*n
+        # for i in range(n):
+        #     ans[i] = prefix_product[i] * suffix_product[i]
 
-        return ans
+        return prefix_product
