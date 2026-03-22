@@ -1,20 +1,23 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         hmap = defaultdict(int)
-        for i in nums:
-            hmap[i] += 1
+
+        for num in nums:
+            hmap[num] += 1
         
         pq = []
-        for i,j in hmap.items():
-            heappush(pq,(j,i))
+        # print(hmap)
+
+        for key,val in hmap.items():
+            heappush(pq,(val,key))
+            # print(pq)
+            if len(pq) > k:
+                heappop(pq)
         
-        n = len(pq)
-        ind = n - k
+            # print(pq)
+
         ans = []
-        for i in range(ind):
-            heappop(pq)
-        
-        ans = []
-        for i in range(k):
-            ans.append(pq[i][1])
+        while pq:
+            ans.append(heappop(pq)[1])
+
         return ans
