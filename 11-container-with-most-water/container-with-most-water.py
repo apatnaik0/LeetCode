@@ -3,12 +3,13 @@ class Solution:
         n = len(height)
         l = 0
         r = n-1
-        maxi = 0
+        area = 0
+
         while l < r:
-            if height[l] < height[r]:
-                maxi = max(maxi,height[l]*(r-l))
+            area = max(area,(r-l)*min(height[l],height[r]))
+            if height[l]<height[r]:
                 l += 1
             else:
-                maxi = max(maxi,height[r]*(r-l))
                 r -= 1
-        return maxi
+
+        return area
