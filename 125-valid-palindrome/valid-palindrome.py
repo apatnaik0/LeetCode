@@ -1,14 +1,10 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-
-        def rec(i):
-            if i>=n[0]//2:
-                return True
-            if st[i]!=st[n[0]-i-1]:
-                return False
-            return rec(i+1)
-        st = ''.join(c.lower() for c in s if c.isalnum())
-        n = [len(st)]
-        return rec(0)
-        
-        
+        new_s = ''
+        for char in s:
+            if char.isalpha():
+                new_s += char.lower()
+            elif char.isnumeric():
+                new_s += char
+            
+        return new_s == new_s[::-1]
