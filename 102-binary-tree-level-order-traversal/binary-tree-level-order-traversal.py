@@ -9,12 +9,13 @@ class Solution:
         if not root:
             return []
         q = deque()
-        ans = []
         q.append(root)
+        ans = []
+
         while q:
-            level = []
             l = len(q)
-            for i in range(l):
+            level = []
+            for _ in range(l):
                 node = q.popleft()
                 level.append(node.val)
                 if node.left:
@@ -22,4 +23,5 @@ class Solution:
                 if node.right:
                     q.append(node.right)
             ans.append(level)
+        
         return ans
