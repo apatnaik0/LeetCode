@@ -3,13 +3,10 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        k = 0
         n = len(nums)
-        for i in range(n):
-            if nums[k] == 0:
-                if nums[i]!=0:
-                    nums[i],nums[k] = nums[k], nums[i]
-                    k+=1
-            else:
-                k += 1
-        return
+        left = 0
+
+        for right in range(n):
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
