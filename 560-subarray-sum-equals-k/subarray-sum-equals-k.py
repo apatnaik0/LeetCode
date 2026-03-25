@@ -1,17 +1,16 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        ct = {}
-        ct[0]=1
-        presum=0
-        tot=0
-        for i in nums:
-            presum += i
-            rem = presum-k
-            if rem in ct:
-                tot+=ct[rem]
-            if presum in ct:
-                ct[presum]+=1
-            else:
-                ct[presum]=1
-        return tot
-            
+        prefix_sum = 0
+        ans = 0
+
+        hmap = defaultdict(int)
+        hmap[0] = 1
+        for num in nums:
+            prefix_sum += num
+            rem = prefix_sum - k
+            if rem in hmap:
+                ans += hmap[rem]
+            hmap[prefix_sum] += 1
+
+
+        return ans
