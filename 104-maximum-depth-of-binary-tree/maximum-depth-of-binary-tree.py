@@ -14,6 +14,6 @@ class Solution:
             left_depth = depth(node.left)
             right_depth = depth(node.right)
 
-            return max(1 + left_depth, 1 + right_depth)
+            return 1 + max(left_depth, right_depth)
 
         return depth(root)
