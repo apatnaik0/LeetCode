@@ -18,16 +18,21 @@ class Solution:
             level = []
             ct += 1
             for _ in range(l):
-                node = q.popleft()
-                level.append(node.val)
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
-            if ct % 2 == 1:
-                ans.append(level)
-            else:
-                ans.append(level[::-1])
+                if ct % 2 == 1:
+                    node = q.popleft()
+                    level.append(node.val)
+                    if node.left:
+                        q.append(node.left)
+                    if node.right:
+                        q.append(node.right)
+                else:
+                    node = q.pop()
+                    level.append(node.val)
+                    if node.right:
+                        q.appendleft(node.right)
+                    if node.left:
+                        q.appendleft(node.left)
+            ans.append(level)
 
         return ans
         
