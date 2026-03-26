@@ -14,4 +14,3 @@ class Solution:
         rev(0,k-1)
         rev(k,len(nums)-1)
         
-        
