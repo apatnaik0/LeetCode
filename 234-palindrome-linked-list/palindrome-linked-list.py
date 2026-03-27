@@ -7,26 +7,33 @@ class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         slow = head
         fast = head
+
         while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
+
+        p1 = head
+
+        def rev(head):
+            prev = None
+            while head:
+                front = head.next
+                head.next = prev
+                prev = head
+                head = front
+            return prev
         
-        new_head = slow.next
-        prev = None
-        while new_head:
-            front = new_head.next
-            new_head.next = prev
-            prev = new_head
-            new_head = front
-        
-        while prev:
-            if prev.val != head.val:
+        p1 = head
+        p2 = rev(slow.next)
+        slow.next = None
+
+        while p1 and p2:
+            if p1.val != p2.val:
                 return False
-            prev = prev.next
-            head = head.next
-        return True
+            p1 = p1.next
+            p2 = p2.next
         
+        return True
 
-
-
+        
         
