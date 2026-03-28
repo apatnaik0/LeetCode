@@ -1,8 +1,10 @@
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        heapify(nums)
+        pq = []
 
-        while len(nums) > k:
-            heappop(nums)
+        for num in nums:
+            heappush(pq,num)
+            if len(pq) > k:
+                heappop(pq)
         
-        return nums[0]
+        return pq[0]
