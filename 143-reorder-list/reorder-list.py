@@ -4,34 +4,41 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def rev(self,head):
+    def rev(self,node):
+
         prev = None
-        while head:
-            nxt = head.next
-            head.next = prev
-            prev = head
-            head = nxt
+        while node:
+            front = node.next
+            node.next = prev
+            prev = node
+            node = front
         return prev
 
     def reorderList(self, head: Optional[ListNode]) -> None:
         """
         Do not return anything, modify head in-place instead.
         """
+
         slow = head
         fast = head
         while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
-        head2 = self.rev(slow.next)
-        slow.next = None
-
-        while head and head2:
-            nxt1 = head.next
-            nxt2 = head2.next
-            head.next = head2
-            head2.next = nxt1
-            head = nxt1
-            head2 = nxt2
         
+        head1 = head
+        head2 = slow.next
+        slow.next = None
+        head2 = self.rev(head2)
+
+        while head1 and head2:
+            front1 = head1.next
+            front2 = head2.next
+            head1.next = head2
+            head2.next = front1
+            head1 = front1
+            head2 = front2
+
+
+
 
         
