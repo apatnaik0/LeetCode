@@ -5,12 +5,12 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def balanced(self,root):
+    def bal(self,root):
         if not root:
             return 0
 
-        lt = self.balanced(root.left)
-        rt = self.balanced(root.right)
+        lt = self.bal(root.left)
+        rt = self.bal(root.right)
 
         if lt == -1:
             return -1
@@ -22,6 +22,6 @@ class Solution:
             return -1
 
         return 1 + max(lt,rt)
-
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        return self.balanced(root)!= -1
+        
+        return self.bal(root)!= -1
