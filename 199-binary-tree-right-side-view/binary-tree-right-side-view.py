@@ -8,13 +8,21 @@ class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
+        
         ans = []
-        def view(root, level):
-            if root is None:
-                return
-            if len(ans)==level:
-                ans.append(root.val)
-            view(root.right,level+1)
-            view(root.left,level+1)
-        view(root,0)
+        q = deque()
+        q.append(root)
+
+        while q:
+            l = len(q)
+            for i in range(l):
+                node = q.popleft()
+                if i == l-1:
+                    ans.append(node.val)
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+        
         return ans
