@@ -1,30 +1,53 @@
 class Solution:
-    def dfs(self,r,c,vis,heights,m,n):
-        if (r,c) in vis:
-            return
-        vis.add((r,c))
-        dr = [1,-1,0,0]
-        dc = [0,0,1,-1]
-        for i in range(4):
-            nr = r + dr[i]
-            nc = c + dc[i]
-            if 0 <= nr < m and 0 <= nc < n and heights[nr][nc] >= heights[r][c]:
-                self.dfs(nr,nc,vis,heights,m,n)
-
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        
+        pacific = set()
+        atlantic = set()
+        dr = [0,0,1,-1]
+        dc = [1,-1,0,0]
+
+        q_pacific = deque()
+        q_atlantic = deque()
+
         m = len(heights)
         n = len(heights[0])
 
-        pacific = set()
-        atlantic = set()
+        for i in range(m):
+            q_pacific.append((i, 0))
+            pacific.add((i, 0))
 
-        for row in range(m):
-            self.dfs(row,0,pacific,heights,m,n)
-            self.dfs(row,n-1,atlantic,heights,m,n)
+            q_atlantic.append((i, n - 1))
+            atlantic.add((i, n - 1))
 
-        for col in range(n):
-            self.dfs(0,col,pacific,heights,m,n)
-            self.dfs(m-1,col,atlantic,heights,m,n)
+        for j in range(n):
+            q_pacific.append((0, j))
+            pacific.add((0, j))
+
+            q_atlantic.append((m - 1, j))
+            atlantic.add((m - 1, j))
+
+        while q_pacific:
+            l = len(q_pacific)
+            for _ in range(l):
+                r,c = q_pacific.popleft()
+                for d in range(4):
+                    nr = r + dr[d]
+                    nc = c + dc[d]
+
+                    if 0<= nr < m and 0<= nc <n and (nr,nc) not in pacific and heights[nr][nc] >= heights[r][c]:
+                        pacific.add((nr,nc))
+                        q_pacific.append((nr,nc))
+
+        while q_atlantic:
+            l = len(q_atlantic)
+            for _ in range(l):
+                r,c = q_atlantic.popleft()
+                for d in range(4):
+                    nr = r + dr[d]
+                    nc = c + dc[d]
+
+                    if 0<= nr < m and 0<= nc <n and (nr,nc) not in atlantic and heights[nr][nc] >= heights[r][c]:
+                        atlantic.add((nr,nc))
+                        q_atlantic.append((nr,nc))
         
-        return list(pacific & atlantic)
+        return list(pacific.intersection(atlantic))
+        
