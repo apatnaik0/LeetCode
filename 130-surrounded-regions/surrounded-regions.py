@@ -1,36 +1,45 @@
 class Solution:
-    def dfs(self,i,j,board,vis,n,m):
-        vis[i][j]=1
-        # print(i,j)
-        delr = [0,0,1,-1]
-        delc = [1,-1,0,0]
-        for k in range(4):
-            nr = i + delr[k]
-            nc = j + delc[k]
-            if nr>=0 and nr<n and nc>=0 and nc<m and board[nr][nc]=='O' and vis[nr][nc]==0:
-                self.dfs(nr,nc,board,vis,n,m)
-
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        n = len(board)
-        m = len(board[0])
-        vis = [[0 for _ in range(m)] for _ in range(n)]
+        points = deque()
+
+        m = len(board)
+        n = len(board[0])
+        vis = [[0 for _ in range(n)] for _ in range(m)]
+        dr = [0,0,1,-1]
+        dc = [1,-1,0,0]
+
         for i in range(m):
-            if vis[0][i]==0 and board[0][i]=='O':
-                self.dfs(0,i,board,vis,n,m)
-            if vis[n-1][i]==0 and board[n-1][i]=='O':
-                self.dfs(n-1,i,board,vis,n,m)
-        for i in range(n):
-            if vis[i][0]==0 and board[i][0]=='O':
-                self.dfs(i,0,board,vis,n,m)
-            if vis[i][m-1]==0 and board[i][m-1]=='O':
-                self.dfs(i,m-1,board,vis,n,m)
-        # print(vis)
-        for i in range(n):
-            for j in range(m):
-                if vis[i][j]==0 and board[i][j]=='O':
+            if board[i][0] == 'O':
+                points.append((i,0))
+                vis[i][0] = 1
+            if board[i][n-1] == 'O':
+                points.append((i,n-1))
+                vis[i][n-1] = 1
+
+        for i in range(1,n-1):
+            if board[0][i] == 'O':
+                points.append((0,i))
+                vis[0][i] = 1
+            if board[m-1][i] == 'O':
+                points.append((m-1,i))
+                vis[m-1][i] = 1
+
+        while points:
+            r,c = points.popleft()
+            for i in range(4):
+                nr = r + dr[i]
+                nc = c + dc[i]
+
+                if 0<= nr < m and 0<= nc<n and vis[nr][nc]==0 and board[nr][nc] == 'O':
+                    vis[nr][nc] = 1
+                    points.append((nr,nc))
+                
+        for i in range(m):
+            for j in range(n):
+                if vis[i][j] == 0 and board[i][j] == 'O':
                     board[i][j] = 'X'
         
         
