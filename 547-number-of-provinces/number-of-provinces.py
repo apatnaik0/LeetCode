@@ -1,26 +1,26 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        
-        def dfs(i):
-            vis[i]=True
-            for j in graph[i]:
-                if not vis[j]:
-                    dfs(j)
+    def dfs(self,vis,adj,i):
+        vis[i] = True
+        for j in adj[i]:
+            if not vis[j]:
+                self.dfs(vis,adj,j)
 
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
         n = len(isConnected)
-        graph = [[] for _ in range(n)]
+        adj = [[] for _ in range(n)]
+
         for i in range(n):
-            for j in range(i+1,n):
-                if isConnected[i][j]==1:
-                    graph[i].append(j)
-                    graph[j].append(i)
+            for j in range(n):
+                if isConnected[i][j] == 1:
+                    adj[i].append(j)
+                    # adj.append(j)
         
         vis = [False]*n
         provinces = 0
 
         for i in range(n):
             if not vis[i]:
-                dfs(i)
+                self.dfs(vis,adj,i)
                 provinces += 1
         
         return provinces
