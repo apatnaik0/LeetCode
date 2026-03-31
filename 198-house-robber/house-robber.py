@@ -10,4 +10,6 @@ class Solution:
             cur = max(pick,nonpick)
             prev2 = prev
             prev = cur
+        
         return prev
+
