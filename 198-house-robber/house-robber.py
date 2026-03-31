@@ -3,9 +3,7 @@ class Solution:
         prev = nums[0]
         prev2 = 0
         for i in range(1,len(nums)):
-            pick = nums[i]
-            if i > 1:
-                pick += prev2
+            pick = nums[i] + prev2
             nonpick = prev
             cur = max(pick,nonpick)
             prev2 = prev
