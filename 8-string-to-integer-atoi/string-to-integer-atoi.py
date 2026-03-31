@@ -9,9 +9,9 @@ class Solution:
         i = 0
         n = len(s)
 
-        while i<n and s[i] == ' ':
+        while i < n and s[i] == ' ':
             i += 1
-        
+
         if i == n:
             return 0
 
@@ -21,17 +21,20 @@ class Solution:
         elif s[i] == '-':
             sign = -1
             i += 1
-        
+
         res = 0
-        while i < n and s[i].isdigit():
+
+        while i<n and s[i].isdigit():
             digit = int(s[i])
-            res = res * 10 + digit
+            res = res*10+digit
 
             if sign * res <= mini:
                 return mini
             if sign * res >= maxi:
                 return maxi
-            
-            i += 1
+            i+= 1
         
-        return res*sign
+        return res * sign
+
+            
+        
