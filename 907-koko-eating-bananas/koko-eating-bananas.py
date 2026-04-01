@@ -1,20 +1,26 @@
-import math
 class Solution:
+    def valid(self,rate,hours,piles):
+        n = len(piles)
+        time = 0
+        for i in range(n):
+            time += ceil(piles[i]/rate)
+            
+        return time <= hours
+
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        
+        piles.sort()
+
         low = 1
         high = max(piles)
-        ans = high
-        def total(piles,n):
-            tot = 0
-            for i in piles:
-                tot+= math.ceil(float(i)/n)
-            return tot
-        while low<=high:
-            mid = (low+high)//2
-            tot = total(piles,mid)
-            if tot<=h:
+        ans = 0
+
+        while low <= high:
+            mid = (low + high)//2
+            if self.valid(mid,h,piles):
                 ans = mid
-                high = mid-1
+                high = mid - 1
             else:
-                low = mid+1
+                low = mid + 1
+        
         return ans
