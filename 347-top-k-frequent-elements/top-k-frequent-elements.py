@@ -4,20 +4,12 @@ class Solution:
 
         for num in nums:
             hmap[num] += 1
-        
-        pq = []
-        # print(hmap)
+
+        heap = []
 
         for key,val in hmap.items():
-            heappush(pq,(val,key))
-            # print(pq)
-            if len(pq) > k:
-                heappop(pq)
-        
-            # print(pq)
+            heappush(heap,(val,key))
+            if len(heap)>k:
+                heappop(heap)
 
-        ans = []
-        while pq:
-            ans.append(heappop(pq)[1])
-
-        return ans
+        return list(x[1] for x in heap)
