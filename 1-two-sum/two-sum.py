@@ -3,9 +3,7 @@ class Solution:
         hmap = {}
         n = len(nums)
         for i in range(n):
-            d = target - nums[i]
-            if d in hmap:
-                return [i,hmap[d]]
-            else:
-                hmap[nums[i]] = i
-        return 
+            res = target - nums[i]
+            if res in hmap:
+                return [hmap[res],i]
+            hmap[nums[i]] = i
