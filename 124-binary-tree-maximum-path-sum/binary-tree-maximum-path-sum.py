@@ -5,17 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def mps(self,root):
+    def max_sum(self,root):
         if not root:
             return 0
-        
-        ls = max(0,self.mps(root.left))
-        rs = max(0,self.mps(root.right))
 
-        self.maxi = max(self.maxi, root.val + ls + rs)
-        return root.val + max(ls,rs)
+        left_sum = max(0,self.max_sum(root.left))
+        right_sum = max(0,self.max_sum(root.right))
+
+        self.maxi = max(self.maxi, root.val + left_sum + right_sum)
+        return root.val + max(left_sum,right_sum)
 
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         self.maxi = root.val
-        self.mps(root)
+        self.max_sum(root)
         return self.maxi
